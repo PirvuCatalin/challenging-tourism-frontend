@@ -11,22 +11,19 @@
     <div class="pac-container-jur md-form mt-0">
         <input #search id="pac-input" class="form-control mr-sm-2" type="text" placeholder="Where do you want to go?">
     </div>
-    <!-- </div> -->
-    <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
-        <agm-marker-cluster
-            imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
-            <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng"
-                (mouseOver)="onMouseOver(infoWindow,gm)">
-                <agm-info-window [disableAutoPan]="false" #infoWindow>
-
-                    <div>
-                        Name: {{location.name}}
-                        <br>
-                        Rating: {{location.rating}}
-                    </div>
-
-                </agm-info-window>
-            </agm-marker>
-        </agm-marker-cluster>
-    </agm-map>
-</div>
+<!-- </div> -->
+<agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
+    <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+        <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng">
+        <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true" #infoWindow>
+            <ng-template>
+                <div>
+                    Name: {{location.name}}
+                    <br>
+                    Rating: {{location.rating}}
+                </div>
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+    </agm-marker-cluster>
+</agm-map>
