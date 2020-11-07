@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+
+<div class="btn-group" role="group" aria-label="Basic example">
+    <button mdbBtn type="button" class="waves-light" mdbWavesEffect>Current Track</button>
+    <button mdbBtn type="button" class="waves-light" mdbWavesEffect>Past Tracks</button>
+    <button mdbBtn type="button" class="waves-light" mdbWavesEffect>Search</button>
+</div>
+
+<div id="pac-container" >
+    <div class="pac-container-jur">
+    <div class="md-form mt-0">
+    <input #search id="pac-input" class="form-control mr-sm-2"  type="text" placeholder="Enter a location">
+</div>
+</div>
+</div>
+<agm-map [zoom]=13 [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-marker [latitude]="lat2" [longitude]="lng2"></agm-marker>
+</agm-map>

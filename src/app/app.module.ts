@@ -42,7 +42,9 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     ReactiveFormsModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE'
+      apiKey: 'AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE',
+      libraries: ['places'],
+      apiVersion: 'quarterly'
     })
   ],
   providers: [

@@ -15,13 +15,15 @@
             <li class="nav-item dropdown" dropdown>
                 <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light"
                     mdbWavesEffect>
-                    <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span>
+                    <mdb-icon fas icon="user"></mdb-icon> Account<span class="caret"></span>
                 </a>
                 <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
                     
 
                     <div *ngIf="authService.isLoggedIn(); else elseBlock">
                         <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="dashboard">Go somewhere</a>
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="dashboard">Settings</a>
                         <a class="dropdown-item waves-light" mdbWavesEffect href="logout">Sign out</a>
                     </div>
                     <ng-template #elseBlock><a class="dropdown-item waves-light" mdbWavesEffect href="login">Sign in</a></ng-template>

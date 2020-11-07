@@ -1,0 +1,22 @@
+agm-map {
+    height: 75%;
+    width: 99%;
+    top: 21%;
+    left: -4%;
+    text-align: -webkit-right;
+    padding-left: 10%;
+    position: absolute;
+  }
+  .pac-container-jur {
+    right: 5%;
+    width: 10%;
+    top: 13%;
+    /* text-align: -webkit-right; */
+    position: absolute;
+    z-index: 5000; /* not setting this can lead to angular hiding the autocomplete */
+  }
+  .btn-group {
+      width: 100%;
+      background-color: rgb(165, 165, 165);
+      color: black;
+  }
