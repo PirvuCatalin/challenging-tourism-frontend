@@ -5,14 +5,9 @@
     <links>
         <!-- Links -->
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link waves-light" mdbWavesEffect href="/contact">
                     <mdb-icon fas icon="envelope"></mdb-icon> Contact<span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect>
-                    <mdb-icon fas icon="cog"></mdb-icon> Settings
                 </a>
             </li>
 
@@ -23,8 +18,15 @@
                     <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span>
                 </a>
                 <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="login">Sign in</a>
+                    
+
+                    <div *ngIf="authService.isLoggedIn(); else elseBlock">
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="logout">Sign out</a>
+                    </div>
+                    <ng-template #elseBlock><a class="dropdown-item waves-light" mdbWavesEffect href="login">Sign in</a></ng-template>
+                    
+
                 </div>
             </li>
 

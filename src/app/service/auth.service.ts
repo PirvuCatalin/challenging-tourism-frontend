@@ -67,4 +67,9 @@ export class AuthService {
     // const expiresAt = JSON.parse(expiration);
     return parseInt(expiration);
   }
+
+  logout() {
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
+  }
 }
