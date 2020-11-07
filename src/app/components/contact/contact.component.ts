@@ -1,6 +1,6 @@
 import { ConnectionService } from '../../service/connection.service';
 import { FormGroup, FormBuilder, Validators, FormsModule } from '@angular/forms';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-contact',
@@ -10,8 +10,11 @@ import { Component, HostListener } from '@angular/core';
 export class ContactComponent {
 
   contactForm: FormGroup;
-disabledSubmitButton: boolean = true;
-optionsSelect: Array<any>;
+  disabledSubmitButton: boolean = true;
+  optionsSelect: Array<any>;
+  title = "";
+  lat = 44.438942;
+  lng = 26.050438;
 
 @HostListener('input') oninput() {
 
