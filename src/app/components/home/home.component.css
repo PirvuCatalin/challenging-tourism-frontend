@@ -1,7 +1,36 @@
-.container-lg p {
-    line-height: 200px;
-    /* Create scrollbar to test positioning */
+
+.bg-img {
+    text-align: center;
+    min-height: 60vh;
+    width: 100%;
+    background: url(../../../assets/home.png) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-.main-container {
-    padding-bottom: 8.5rem;
+
+.homeMap {
+    text-align: center;
+    min-height: 45vh;
+    width: 100%;
+    background: url(../../../assets/homeMap.png) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.registerButton {
+    font-size: large;
+    font-weight: bold;
+    top: 38vh;
+    position: relative;
+    opacity: 1;
+}
+.exploreButton {
+    font-size: large;
+    font-weight: bold;
+    top: 23vh;
+    position: relative;
+    opacity: 1;
 }
