@@ -21,8 +21,7 @@ export class CommonService {
   }
 
   addCityPoints(city, points): Observable<any> {
-    let params = new HttpParams().set("city", city).set("score", points)
-    return this.http.put(this.addPointsUrl, {params: params}).pipe(
+    return this.http.put(this.addPointsUrl, JSON.stringify({"city": city, "score": points})).pipe(
       map(results => { 
         results;
       })
