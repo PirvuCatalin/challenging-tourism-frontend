@@ -2,7 +2,7 @@
     position: sticky;
     top: 0;
     display: block;
-    z-index: 9999;
+    z-index: 100001;
 }
 .brandImg {
     height: 40px;
