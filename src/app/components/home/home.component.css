@@ -2,3 +2,6 @@
     line-height: 200px;
     /* Create scrollbar to test positioning */
 }
+.main-container {
+    padding-bottom: 8.5rem;
+}

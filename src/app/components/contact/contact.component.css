@@ -14,6 +14,8 @@ agm-map {
     height: 79%;
     width: 75%;
     top: 14%;
-    left: 40%;
+    left: 20%;
+    text-align: -webkit-right;
+    padding-left: 10%;
     position: absolute;
   }
