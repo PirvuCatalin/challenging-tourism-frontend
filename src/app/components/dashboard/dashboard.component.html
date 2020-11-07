@@ -1,27 +1,32 @@
 <div class="btn-group" role="group" aria-label="Basic example">
-    <button mdbBtn type="button" class="waves-light" mdbWavesEffect>Current Track</button>
-    <button mdbBtn type="button" class="waves-light" mdbWavesEffect>Past Tracks</button>
-    <button mdbBtn type="button" class="waves-light" mdbWavesEffect>Search</button>
+    <button mdbBtn type="button" class="waves-light {{showCurrent ? 'selectedButton' : ''}}" mdbWavesEffect (click)="onCurrentClick()">CURRENT TRIP</button>
+    <button mdbBtn type="button" class="waves-light {{showPast ? 'selectedButton' : ''}}" mdbWavesEffect (click)="onPastClick()">PAST TRIP</button>
+    <button mdbBtn type="button" class="waves-light {{showJourney ? 'selectedButton' : ''}}" mdbWavesEffect (click)="onJourneyClick()">START JOURNEY</button>
 </div>
 
-<!-- <div class="pac-container-jur"> -->
+<div [hidden]="!showCurrent"> current trip content </div>
+<div [hidden]="!showPast"> past trip content </div>
+<div [hidden]="!showJourney">
+    <!-- <div class="pac-container-jur"> -->
     <div class="pac-container-jur md-form mt-0">
-        <input #search id="pac-input" class="form-control mr-sm-2"  type="text" placeholder="Where do you want to go?">
+        <input #search id="pac-input" class="form-control mr-sm-2" type="text" placeholder="Where do you want to go?">
     </div>
-<!-- </div> -->
-<agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
-    <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
-        <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng"
-        (mouseOver)="onMouseOver(infoWindow,gm)">
-        <agm-info-window [disableAutoPan]="false" #infoWindow>
+    <!-- </div> -->
+    <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
+        <agm-marker-cluster
+            imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+            <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng"
+                (mouseOver)="onMouseOver(infoWindow,gm)">
+                <agm-info-window [disableAutoPan]="false" #infoWindow>
 
-            <div>
-                Name: {{location.name}}
-                <br>
-                Rating: {{location.rating}}
-            </div>
+                    <div>
+                        Name: {{location.name}}
+                        <br>
+                        Rating: {{location.rating}}
+                    </div>
 
-        </agm-info-window>
-    </agm-marker>
-    </agm-marker-cluster>
-</agm-map>
+                </agm-info-window>
+            </agm-marker>
+        </agm-marker-cluster>
+    </agm-map>
+</div>

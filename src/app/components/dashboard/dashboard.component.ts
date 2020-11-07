@@ -119,4 +119,26 @@ export class DashboardComponent implements OnInit {
     console.log(id)
   }
 
+
+  showCurrent = false;
+  showPast = false;
+  showJourney = true;
+
+  onCurrentClick() {
+    this.showCurrent = true;
+    this.showPast = false;
+    this.showJourney = false;
+  }
+
+  onPastClick() {
+    this.showCurrent = false;
+    this.showPast = true;
+    this.showJourney = false;
+  }
+
+  onJourneyClick() {
+    this.showCurrent = false;
+    this.showPast = false;
+    this.showJourney = true;
+  }
 }
