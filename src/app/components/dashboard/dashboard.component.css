@@ -11,9 +11,8 @@ agm-map {
     right: 5%;
     width: 10%;
     top: 13%;
-    /* text-align: -webkit-right; */
     position: absolute;
-    z-index: 5000; /* not setting this can lead to angular hiding the autocomplete */
+    z-index: 100000;
   }
   .btn-group {
       width: 100%;
