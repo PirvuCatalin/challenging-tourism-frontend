@@ -6,9 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { CommonModule } from '@angular/common';
-
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactComponent } from './components/contact/contact.component';
@@ -45,7 +44,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
       apiKey: 'AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE',
       libraries: ['places'],
       apiVersion: 'quarterly'
-    })
+    }),
+    AgmJsMarkerClustererModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
