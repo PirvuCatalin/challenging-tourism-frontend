@@ -10,6 +10,9 @@ import { HomeComponent } from './components/home/home.component';
 import { CommonModule } from '@angular/common';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
@@ -20,10 +23,13 @@ import { LoginComponent } from './components/login/login.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
