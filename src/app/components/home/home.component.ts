@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   testJson = null;
   email = null;
 
-  constructor(private commonService : CommonService, private authService : AuthService) { }
+  constructor(private commonService : CommonService, public authService : AuthService) { }
 
   ngOnInit(): void {
     this.commonService.getTestJson().subscribe(testJson => {
