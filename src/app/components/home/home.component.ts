@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
 import { CommonService } from 'src/app/service/common.service';
 
 @Component({
@@ -8,12 +9,17 @@ import { CommonService } from 'src/app/service/common.service';
 })
 export class HomeComponent implements OnInit {
   testJson = null;
-  
-  constructor(private commonService : CommonService) { }
+  email = null;
+
+  constructor(private commonService : CommonService, private authService : AuthService) { }
 
   ngOnInit(): void {
     this.commonService.getTestJson().subscribe(testJson => {
       this.testJson = testJson;
+    });
+
+    this.authService.getEmail().subscribe(email => {
+      this.email = email;
     });
   }
 

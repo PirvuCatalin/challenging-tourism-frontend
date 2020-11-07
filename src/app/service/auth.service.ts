@@ -1,15 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { shareReplay, tap } from "rxjs/operators";
+import { map, shareReplay, tap } from "rxjs/operators";
 import * as moment from "moment";
 import jwt_decode from 'jwt-decode';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  loginUrl = "https://test-fast-api-mata.herokuapp.com/auth/jwt/login"
+  loginUrl = "https://test-fast-api-mata.herokuapp.com/auth/jwt/login";
+  emailUrl = "https://test-fast-api-mata.herokuapp.com/users/me";
+  registerUrl = "https://test-fast-api-mata.herokuapp.com/auth/register";
 
   constructor(private http: HttpClient) {
   }
@@ -71,5 +74,32 @@ export class AuthService {
   logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
+  }
+
+  getEmail(): Observable<any> {
+    if(this.isLoggedIn()) {
+      return this.http.get(this.emailUrl).pipe(
+        map(results => {
+          return results["email"];
+        })
+      );
+    } else {
+      return of(null);
+    } 
+  }
+
+  register(email: string, password: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    let options = { headers: headers };
+
+    //{ username: email, password: password }
+    return this.http.post(this.registerUrl, {email: email, password: password}, options).pipe(
+      // tap(res => this.setSession(res)),
+      // // this is just the HTTP call, 
+      // // we still need to handle the reception of the token
+      // shareReplay()
+    );
   }
 }
