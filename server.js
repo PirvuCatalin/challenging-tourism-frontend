@@ -1,5 +1,7 @@
 const express = require('express');
 
+const app = express();
+
 app.use(cors(corsOptions));
 
 app.use(express.static('./dist/'));
