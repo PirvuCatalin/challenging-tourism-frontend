@@ -13,5 +13,10 @@
 </div>
 
 <div class="homeMap">
-    <a href="/dashboard"><button class="exploreButton" type="button" mdbBtn color="light" mdbWavesEffect>EXPLORE NOW</button></a>
+    <div *ngIf="authService.isLoggedIn(); else elseBlock">
+        <a href="/dashboard"><button class="exploreButton" type="button" mdbBtn color="light" mdbWavesEffect>EXPLORE NOW</button></a>
+    </div>
+    <ng-template #elseBlock>
+        <a href="/register"><button class="exploreButton" type="button" mdbBtn color="light" mdbWavesEffect>EXPLORE NOW</button></a>
+    </ng-template>
 </div>
