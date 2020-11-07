@@ -1,6 +1,10 @@
+/// <reference types="@types/googlemaps" />
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild, NgZone } from '@angular/core';
 import { MapsAPILoader} from '@agm/core';
+
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
