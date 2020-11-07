@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { shareReplay, tap } from "rxjs/operators";
 import * as moment from "moment";
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthService {
     let options = { headers: headers };
 
     //{ username: email, password: password }
-    return this.http.post(this.loginUrl, "username=" + email +"&password=" + password, options).pipe(
+    return this.http.post(this.loginUrl, "username=" + email + "&password=" + password, options).pipe(
       tap(res => this.setSession(res)),
       // this is just the HTTP call, 
       // we still need to handle the reception of the token
@@ -30,15 +31,30 @@ export class AuthService {
   }
 
   private setSession(authResult) {
+    console.log(authResult);
     // const expiresAt = moment().add(authResult.expiresIn, 'second');
 
-    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('id_token', authResult.access_token);
     // localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
-    localStorage.setItem("expires_at", authResult.exp);
+    const expiresAt = this.getDecodedAccessToken(authResult.access_token).exp;
+    console.log(expiresAt);
+    localStorage.setItem("expires_at", expiresAt);
+
+
+    // console.log(this.getDecodedAccessToken(authResult.access_token));
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    }
+    catch (Error) {
+      return null;
+    }
   }
 
   public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+    return moment().unix() < (this.getExpiration());
   }
 
   isLoggedOut() {
@@ -46,8 +62,9 @@ export class AuthService {
   }
 
   getExpiration() {
-    const expiration = localStorage.getItem("exp");
+
+    const expiration = localStorage.getItem("expires_at");
     // const expiresAt = JSON.parse(expiration);
-    return moment(expiration);
+    return parseInt(expiration);
   }
 }

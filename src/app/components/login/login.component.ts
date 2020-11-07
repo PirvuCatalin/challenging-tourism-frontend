@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/service/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
@@ -18,10 +18,14 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/');
+    }
+  }
+
   login() {
     const val = this.form.value;
-
-    console.log(val.email + " " + val.password);
 
     if (val.email && val.password) {
       this.authService.login(val.email, val.password)
