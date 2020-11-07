@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 providedIn: 'root'
 })
 export class ConnectionService {
-  // TODO: change this with actual route
 url: string = 'http://localhost:3000/send';
 constructor(private http: HttpClient) { }
 
