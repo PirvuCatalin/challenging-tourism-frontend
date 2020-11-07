@@ -4,7 +4,28 @@
     <button mdbBtn type="button" class="waves-light {{showJourney ? 'selectedButton' : ''}}" mdbWavesEffect (click)="onJourneyClick()">START JOURNEY</button>
 </div>
 
-<div [hidden]="!showCurrent"> current trip content </div>
+<div [hidden]="!showCurrent">
+
+    <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
+        <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+            <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng">
+            <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true" #infoWindow>
+                <ng-template>
+                    <div>
+                        Name: {{location.name}}
+                        <br>
+                        Rating: {{location.rating}}
+                        <br>
+                        <div *ngIf="location.visited; else notVisited">You already visited this place!</div>
+                        <ng-template #notVisited><div>You did not visit this place!</div></ng-template>
+                    </div>
+                </ng-template>
+            </agm-snazzy-info-window>
+        </agm-marker>
+        </agm-marker-cluster>
+    </agm-map>
+
+</div>
 <div [hidden]="!showPast"> past trip content </div>
 <div [hidden]="!showJourney">
     <!-- <div class="pac-container-jur"> -->
@@ -14,7 +35,8 @@
 <!-- </div> -->
 <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
     <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
-        <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng">
+        <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng"
+        (markerClick)="markerClicked(location)">
         <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true" #infoWindow>
             <ng-template>
                 <div>
@@ -27,3 +49,4 @@
     </agm-marker>
     </agm-marker-cluster>
 </agm-map>
+<!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE&"></script> -->

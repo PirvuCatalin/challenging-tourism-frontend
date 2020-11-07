@@ -1,21 +1,27 @@
 /// <reference types="@types/googlemaps" />
 declare var require: any
+// declare var google: any
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild, NgZone } from '@angular/core';
 import { MapsAPILoader} from '@agm/core';
+import { CommonService } from 'src/app/service/common.service';
+// import { google } from '@types/googlemaps';
 
 export class GeoLocation {
   lat: number;
   lng: number;
   name: string;
   rating: number;
+  visited: boolean;
+  city: string;
 
-  constructor (lat, lng, name, rating) {
+  constructor (lat, lng, name, rating, visited, city) {
     this.lat = lat;
     this.lng = lng;
     this.name = name;
     this.rating = Math.round((rating * 100 / 23)*100)/100;
-
+    this.visited = visited;
+    this.city = city;
   }
 
 }
@@ -29,24 +35,25 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone,
+    private commonService: CommonService) { }
 
   lat: number;
   lng: number;
   zoom: number;
   locations: GeoLocation[] = [];  
   map;
+  city: string;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
   ngOnInit() {
     this.setCurrentLocation();
-    this.get_stuff(this.lat, this.lng);
 
     this.mapsAPILoader.load().then(() => { 
 
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ["(cities)"]});
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
@@ -56,6 +63,8 @@ export class DashboardComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
+
+          this.city = place.name;
 
           //set latitude, longitude and zoom
           this.lat = place.geometry.location.lat();
@@ -69,18 +78,22 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  public async get_stuff(lat, lng) {
+  
+
+  async get_stuff(lat, lng) {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const yourUrl: string = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=15000&keyword=historic&key=AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE`;
     const axios = require('axios');
     try {
         const response = await axios.get(proxyurl + yourUrl);
-        console.log(response['data']['results'])
+        // console.log(response['data'])
         for (let entry of response['data']['results']) {
           this.locations.push(new GeoLocation(entry['geometry']['location']['lat'], 
                                               entry['geometry']['location']['lng'],
                                               entry['name'],
-                                              entry['rating']));
+                                              entry['rating'],
+                                              false,
+                                              this.city));
           
         }
     } catch (exception) {
@@ -103,20 +116,23 @@ export class DashboardComponent implements OnInit {
       }
     }
 
-    // onMouseOver(infoWindow, gm) {
-
-    //   if (gm.lastOpen != null) {
-    //       gm.lastOpen.close();
-    //   }
-        
-    //   gm.lastOpen = infoWindow;
-
-      // infoWindow.open();
-  // }
-
   onClickInfoView(id) {
     console.log(id)
   }
+
+  
+  markerClicked(marker) {
+
+    this.locations.forEach(x =>  {
+      if (x.lat === marker.lat && x.lng === marker.lng && x.visited === false) {
+        x.visited = true;
+        this.commonService.addCityPoints(this.city, x.rating).subscribe(res => {
+          console.log(res);
+        });
+        console.log("Executed")
+      }
+   });
+  };
 
 
   showCurrent = false;
