@@ -1,5 +1,5 @@
 {
-  "name": "hackathon-template",
+  "name": "challenging-tourism-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build --prod --output-path dist"
   },
   "private": true,
   "dependencies": {
