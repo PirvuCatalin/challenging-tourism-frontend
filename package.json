@@ -14,6 +14,7 @@
   "dependencies": {
     "@agm/core": "^1.1.0",
     "@agm/js-marker-clusterer": "^1.1.0",
+    "@agm/snazzy-info-window": "^3.0.0-beta.0",
     "@angular-devkit/build-angular": "^0.1002.0",
     "@angular/animations": "~10.2.0",
     "@angular/cdk": "^10.2.7",
@@ -40,6 +41,7 @@
     "moment": "^2.29.1",
     "ng-connection-service": "^1.0.4",
     "rxjs": "~6.6.0",
+    "snazzy-info-window": "^1.1.0",
     "tslib": "^2.0.0",
     "typescript": "^4.0.5",
     "zone.js": "~0.10.2"

@@ -14,7 +14,7 @@ export class GeoLocation {
     this.lat = lat;
     this.lng = lng;
     this.name = name;
-    this.rating = rating;
+    this.rating = Math.round((rating * 100 / 23)*100)/100;
 
   }
 
@@ -34,7 +34,8 @@ export class DashboardComponent implements OnInit {
   lat: number;
   lng: number;
   zoom: number;
-  locations: GeoLocation[] = [];
+  locations: GeoLocation[] = [];  
+  map;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -60,7 +61,6 @@ export class DashboardComponent implements OnInit {
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
           this.zoom = 12;
-          
           this.get_stuff(this.lat, this.lng);
 
         }); 
@@ -81,12 +81,9 @@ export class DashboardComponent implements OnInit {
                                               entry['geometry']['location']['lng'],
                                               entry['name'],
                                               entry['rating']));
-          // console.log(entry);
-          // console.log(response)
           
         }
     } catch (exception) {
-        //process.stderr.write(`ERROR received from ${yourUrl}: ${exception}\n`);
         console.log(exception);
       }
       
@@ -101,19 +98,21 @@ export class DashboardComponent implements OnInit {
           this.lng = position.coords.longitude;
           this.zoom = 15;
         });
+
+
       }
     }
 
-    onMouseOver(infoWindow, gm) {
+    // onMouseOver(infoWindow, gm) {
 
-      if (gm.lastOpen != null) {
-          gm.lastOpen.close();
-      }
+    //   if (gm.lastOpen != null) {
+    //       gm.lastOpen.close();
+    //   }
         
-      gm.lastOpen = infoWindow;
+    //   gm.lastOpen = infoWindow;
 
-      infoWindow.open();
-  }
+      // infoWindow.open();
+  // }
 
   onClickInfoView(id) {
     console.log(id)

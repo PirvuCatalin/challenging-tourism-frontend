@@ -31,7 +31,8 @@
                             "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
                             "node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
                             "node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
-                            "node_modules/animate.css/animate.css"
+                            "node_modules/animate.css/animate.css",
+                            "node_modules/snazzy-info-window/dist/snazzy-info-window.css"
                         ],
                         "scripts": [
                             "node_modules/chart.js/dist/Chart.js",
