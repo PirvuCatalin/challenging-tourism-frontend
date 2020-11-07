@@ -1,13 +1,14 @@
 {
-  "name": "hackathon-template",
+  "name": "challenging-tourism-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod --output-path dist"
   },
   "private": true,
   "dependencies": {
@@ -28,7 +29,13 @@
     "@types/googlemaps": "^3.40.3",
     "angular-bootstrap-md": "^10.0.0",
     "animate.css": "^4.1.1",
+<<<<<<< HEAD
     "chart.js": "^2.9.4",
+=======
+    "chart.js": "^2.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+>>>>>>> 87d91e62dbb5a457315da67d284a7e9ae9b26223
     "hammerjs": "^2.0.8",
     "ng-connection-service": "^1.0.4",
     "rxjs": "~6.6.0",
