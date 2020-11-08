@@ -24,7 +24,7 @@ export class ChallengesComponent implements OnInit {
   constructor(private router: Router, private commonService: CommonService) { }
 
   challenges: Challenge[] = [
-    { numOfWaypoints: 10, name: "Visit 10 waypoints in Bucharest in the timeframe to get 100 bonus points.", isActive: false, bonusPoints: 100, expiresInSeconds: 20, currentNumOfWaypoints: 0, city: "Bucharest" }
+    { numOfWaypoints: 3, name: "Visit 3 waypoints in Bucharest in the timeframe of 20s to get 1000 bonus points.", isActive: false, bonusPoints: 100, expiresInSeconds: 20, currentNumOfWaypoints: 0, city: "Bucharest" }
   ];
 
   ngOnInit(): void {
