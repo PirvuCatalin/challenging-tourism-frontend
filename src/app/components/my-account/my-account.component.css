@@ -1,0 +1,22 @@
+.myAccountTitle {
+    font-size: x-large;
+    position: fixed;
+    left: 5%;
+    top: 10%;
+}
+
+table {
+    width: 50%;
+    margin: auto;
+    margin-top: 10%;
+    padding-top: 37rem;
+}
+
+.tableParent {
+    padding-bottom: 30rem;
+}
+
+.specialRow {
+    font-weight: bold;
+    transform: translate(0%, 30%);
+}

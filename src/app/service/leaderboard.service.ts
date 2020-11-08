@@ -1,17 +1,15 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, shareReplay, tap } from "rxjs/operators";
-import * as moment from "moment";
-import jwt_decode from 'jwt-decode';
-import { Observable, of } from 'rxjs';
+import { map } from "rxjs/operators";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaderboardService {
 
-  leaderboardByCityUrl = "http://test-fast-api-mata.herokuapp.com/leader_board_by_city";
-  leaderboard = "http://test-fast-api-mata.herokuapp.com/leader_board";
+  leaderboardByCityUrl = "https://test-fast-api-mata.herokuapp.com/leader_board_by_city";
+  leaderboard = "https://test-fast-api-mata.herokuapp.com/leader_board";
 
   constructor(private http: HttpClient) { }
 
