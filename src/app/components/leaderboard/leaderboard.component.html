@@ -1,0 +1,49 @@
+<div class="leaderboardTitle">Leaderboard</div>
+<div class="leaderboard">
+    <div [hidden]="selectedCity == null">
+        <table class="table">
+            <caption>Leaderboard of {{selectedCity}}</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of leaderboard; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{user.email}}</td>
+                    <td>{{user.total_points}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="selectedCity != null">
+        <table class="table">
+            <caption>Global Leaderboard</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of leaderboard; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{user.email}}</td>
+                    <td>{{user.total_points}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="map">
+    <div class="pac-container-jur md-form mt-0">
+        <input #search id="pac-input" class="form-control mr-sm-2" type="text" placeholder="Search for a specific city">
+    </div>
+    <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
+    </agm-map>
+</div>

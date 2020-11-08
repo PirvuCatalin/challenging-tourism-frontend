@@ -19,6 +19,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
     DashboardComponent,
     ContactComponent,
     RegisterComponent,
-    LogoutComponent
+    LogoutComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,

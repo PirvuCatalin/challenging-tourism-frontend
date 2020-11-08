@@ -1,0 +1,46 @@
+agm-map {
+    height: 75%;
+    width: 99%;
+    top: 21%;
+    left: -4%;
+    text-align: -webkit-right;
+    padding-left: 50%;
+    position: absolute;
+}
+
+.pac-container-jur {
+    right: 5%;
+    width: 15%;
+    top: 13%;
+    position: absolute;
+    z-index: 100000;
+}
+
+.btn-group {
+    width: 100%;
+    background-color: rgb(165, 165, 165);
+    color: black;
+}
+
+.selectedButton {
+    background-color: rgb(71, 69, 69) !important;
+}
+
+.leaderboard {
+    padding-right: 5%;
+    padding-top: 10%;
+    padding-left: 5%;
+    width: 45%;
+    display: inline-block;
+}
+
+.map {
+    display: inline-block;
+}
+
+.leaderboardTitle {
+    font-size: x-large;
+    position: fixed;
+    left: 5%;
+    top: 10%;
+}

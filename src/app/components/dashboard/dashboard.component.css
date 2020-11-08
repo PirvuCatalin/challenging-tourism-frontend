@@ -16,9 +16,10 @@ agm-map {
   }
   .btn-group {
       width: 100%;
-      background-color: rgb(165, 165, 165);
+      background-color: rgb(71, 69, 69) !important;
       color: black;
   }
   .selectedButton {
-    background-color: rgb(71, 69, 69) !important;
+    
+    background-color: rgb(165, 165, 165);
   }
