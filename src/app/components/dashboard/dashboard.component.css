@@ -16,7 +16,7 @@ agm-map {
   }
   .btn-group {
       width: 100%;
-      background-color: rgb(71, 69, 69) !important;
+      background-color: rgb(94, 94, 94) !important;
       color: black;
   }
   .selectedButton {
@@ -37,4 +37,11 @@ agm-map {
     /* padding-left: 8%; */
     margin-left: 7%;
     width: 33%;
+  }
+  mdb-card-body {
+    text-align: center;
+    height: 20%;
+  }
+  .card-group {
+    height: 110% !important;
   }
