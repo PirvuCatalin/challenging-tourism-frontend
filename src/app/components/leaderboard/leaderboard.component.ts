@@ -32,7 +32,6 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit(): void {
     this.leaderboardService.getLeaderboard().subscribe(res => {
       this.leaderboard = res;
-      console.log(res);
     });
 
     this.setCurrentLocation();
@@ -45,10 +44,12 @@ export class LeaderboardComponent implements OnInit {
           //get the place result
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-
-
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
+            this.leaderboardService.getLeaderboard().subscribe(res => {
+              this.leaderboard = res;
+            });
+            this.selectedCity = null;
             return;
           }
           this.selectedCity = place.name;
