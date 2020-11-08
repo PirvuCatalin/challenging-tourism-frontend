@@ -1,5 +1,7 @@
 <div class="myAccountTitle">My Account</div>
 
+<div class="myPointsTitle">My Points</div>
+
 <div *ngIf="myInfo != null; else elseBlock" class="tableParent">
     <table class="table">
         <thead>
@@ -24,3 +26,20 @@
     </table>
 </div>
 <ng-template #elseBlock>No points ;(</ng-template>
+
+<div class="myAchivementsTitle">My Achivements</div>
+
+<div *ngIf="myInfo != null; else elseBlockTwo">
+    <div *ngFor="let item of myInfo.achievements; let i = index" class="col-sm-6 mb-3 mb-md-0">
+        <div class="card cardClass">
+            <div class="card-body">
+                <h5 class="card-title">{{item}}</h5>
+                <p class="card-text">You have earned this achivement by completing one of the challenges.</p>
+                <a href="dashboard" class="btn btn-primary">Launch Journey</a>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlockTwo>No achivements ;(</ng-template>
+
+<div style="height: 150px;"></div>
