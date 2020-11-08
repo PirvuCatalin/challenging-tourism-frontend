@@ -9,9 +9,15 @@ import { CommonService } from 'src/app/service/common.service';
 
 export class Achievement {
   name: string;
+  lat: number;
+  lng: number;
+  visited: boolean;
 
-  constructor(name) {
+  constructor(name, lat, lng, visited) {
     this.name = name;
+    this.lat = lat;
+    this.lng = lng;
+    this.visited = visited;
   }
 }
 
@@ -72,17 +78,24 @@ export class DashboardComponent implements OnInit {
 
   populate_achievements() {
     for (let item of this.achievements_locations) {
-      this.achievements.push(new Achievement("Visitor of " + item.name))
+      this.achievements.push(new Achievement("Visitor of " + item.name, item.lat, item.lng, false))
     }
   }
 
   is_achievement(location) {
-    for (let item of this.achievements_locations) {
-      if (item.lat === location.lat && item.lng === location.lng) {
-        return true;
+    let flag = false;
+    console.log('Identified an achievement')
+    this.achievements_locations.forEach(x => {
+      if (x.lat === location.lat && x.lng === location.lng && x.visited === false) {
+        console.log("Identified not visited achievement");
+        console.log(x.name)
+        console.log(x.lat)
+        console.log(x.lng)
+        x.visited = true;
+        flag = true;
       }
-    }
-    return false;
+    });
+    return flag;
   }
 
   @ViewChild('search')
@@ -145,8 +158,6 @@ export class DashboardComponent implements OnInit {
     } catch (exception) {
       console.log(exception);
     }
-
-    console.log(this.locations);
   }
 
   // Get Current Location Coordinates
@@ -162,17 +173,11 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  onClickInfoView(id) {
-    console.log(id)
-  }
-
-
-
   markerClicked(marker) {
     this.getNumber()
     if (this.is_achievement(marker)) {
       this.commonService.addAchievement("Visitor of " + marker.name).subscribe(res => {
-        console.log(res);
+        console.log("This was an achievement");
       });
     }
     console.log(this.random_year)
