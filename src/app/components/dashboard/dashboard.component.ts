@@ -29,8 +29,10 @@ export class GeoLocation {
   visited: boolean;
   city: string;
   photo_url: number;
+  vicinity: string;
+  user_ratings_total: number;
 
-  constructor(lat, lng, name, rating, visited, city, photo_url) {
+  constructor(lat, lng, name, rating, visited, city, photo_url, vicinity, user_ratings_total) {
     this.lat = lat;
     this.lng = lng;
     this.name = name;
@@ -38,6 +40,8 @@ export class GeoLocation {
     this.visited = visited;
     this.city = city;
     this.photo_url = photo_url;
+    this.vicinity = vicinity;
+    this.user_ratings_total = user_ratings_total;
   }
 
 }
@@ -60,17 +64,17 @@ export class DashboardComponent implements OnInit {
   locations: GeoLocation[] = [];
   achievements: Achievement[] = [];
   achievements_locations: GeoLocation[] = [
-    new GeoLocation(44.453063, 26.0981233, "Unknown Hero Statue", -1, false, "Bucharest", ""),
-    new GeoLocation(44.4671777, 26.078116, "The Arch Of Triumph", -1, false, "Bucharest", ""),
-    new GeoLocation(44.5276558, 25.9926667, "Mogoşoaia Palace", -1, false, "Bucharest", ""),
-    new GeoLocation(44.4226721, 26.1029368, "18th-century townsman house", -1, false, "Bucharest", ""),
-    new GeoLocation(44.4126574, 26.0944944, "Monument istoric Mine si Cariere", -1, false, "Bucharest", ""),
-    new GeoLocation(44.4441413, 26.1412125, "The monument of the Armenian Heroes", -1, false, "Bucharest", ""),
-    new GeoLocation(44.4456823, 26.1082433, "Casa Barbu Brezianu", -1, false, "Bucharest", ""),
-    new GeoLocation(44.43198049999999, 26.0999081, "Palatul Pinacotecii", -1, false, "Bucharest", ""),
-    new GeoLocation(44.4301472, 26.1009639, "Curtea Veche", -1, false, "Bucharest", ""),
-    new GeoLocation(44.4463067, 26.1194244, "Casa Alexandru Dimitriu", -1, false, "Bucharest", ""),
-    new GeoLocation(44.43635829999999, 26.1011647, "National Liberal Party Memorial", -1, false, "Bucharest", "")
+    new GeoLocation(44.453063, 26.0981233, "Unknown Hero Statue", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.4671777, 26.078116, "The Arch Of Triumph", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.5276558, 25.9926667, "Mogoşoaia Palace", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.4226721, 26.1029368, "18th-century townsman house", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.4126574, 26.0944944, "Monument istoric Mine si Cariere", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.4441413, 26.1412125, "The monument of the Armenian Heroes", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.4456823, 26.1082433, "Casa Barbu Brezianu", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.43198049999999, 26.0999081, "Palatul Pinacotecii", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.4301472, 26.1009639, "Curtea Veche", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.4463067, 26.1194244, "Casa Alexandru Dimitriu", -1, false, "Bucharest", "", "", ""),
+    new GeoLocation(44.43635829999999, 26.1011647, "National Liberal Party Memorial", -1, false, "Bucharest", "", "", "")
   ];
   map;
   city: string;
@@ -152,7 +156,9 @@ export class DashboardComponent implements OnInit {
           entry['rating'],
           false,
           this.city,
-          ""));
+          "",
+          entry["vicinity"],
+          entry["user_ratings_total"]));
 
       }
     } catch (exception) {
@@ -174,6 +180,7 @@ export class DashboardComponent implements OnInit {
   }
 
   markerClicked(marker) {
+    console.log(marker);
     this.getNumber()
     if (this.is_achievement(marker)) {
       this.commonService.addAchievement("Visitor of " + marker.name).subscribe(res => {
