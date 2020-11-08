@@ -181,9 +181,12 @@ export class DashboardComponent implements OnInit {
           this.zoom = 12;
           this.get_stuff(this.lat, this.lng);
 
-          this.showCurrent = true;
-          this.showPast = false;
-          this.showJourney = false;
+          if(!this.challengeEnded) {
+            this.showCurrent = true;
+            this.showPast = false;
+            this.showJourney = false;
+          }
+          
         });
       });
     });
