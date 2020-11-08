@@ -10,6 +10,7 @@ export class CommonService {
   testUrl = "https://test-fast-api-mata.herokuapp.com/";
   addPointsUrl = "https://test-fast-api-mata.herokuapp.com/inc_user_city?";
   addAchievementUrl = "https://test-fast-api-mata.herokuapp.com/add_achievement?";
+  myInfoUrl = "https://test-fast-api-mata.herokuapp.com/users/me";
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +34,14 @@ export class CommonService {
     return this.http.put(this.addAchievementUrl + "achievement=" + achievement, {}).pipe(
       map(results => { 
         results;
+      })
+    );
+  }
+
+  getCityPoints(city): Observable<any> {
+    return this.http.get(this.myInfoUrl).pipe(
+      map(results => { 
+        return results["points_per_city"][city];
       })
     );
   }

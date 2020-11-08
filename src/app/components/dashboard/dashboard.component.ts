@@ -3,7 +3,7 @@ declare var require: any
 // declare var google: any
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild, NgZone } from '@angular/core';
-import { MapsAPILoader} from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 import { CommonService } from 'src/app/service/common.service';
 // import { google } from '@types/googlemaps';
 
@@ -24,11 +24,11 @@ export class GeoLocation {
   city: string;
   photo_url: number;
 
-  constructor (lat, lng, name, rating, visited, city, photo_url) {
+  constructor(lat, lng, name, rating, visited, city, photo_url) {
     this.lat = lat;
     this.lng = lng;
     this.name = name;
-    this.rating = Math.round((rating * 100 / 23)*100)/100;
+    this.rating = Math.round((rating * 100 / 23) * 100) / 100;
     this.visited = visited;
     this.city = city;
     this.photo_url = photo_url;
@@ -88,13 +88,15 @@ export class DashboardComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
+  numberOfPoints = 0;
+
   ngOnInit() {
     this.setCurrentLocation();
     this.populate_achievements()
 
-    this.mapsAPILoader.load().then(() => { 
+    this.mapsAPILoader.load().then(() => {
 
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ["(cities)"]});
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, { types: ["(cities)"] });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
@@ -107,13 +109,17 @@ export class DashboardComponent implements OnInit {
 
           this.city = place.name;
 
+          this.commonService.getCityPoints(this.city).subscribe(res => {
+            this.numberOfPoints = res;
+          })
+
           //set latitude, longitude and zoom
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
           this.zoom = 12;
           this.get_stuff(this.lat, this.lng);
 
-        }); 
+        });
       });
     });
 
@@ -124,44 +130,44 @@ export class DashboardComponent implements OnInit {
     const yourUrl: string = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=15000&keyword=historic&key=AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE`;
     const axios = require('axios');
     try {
-        const response = await axios.get(proxyurl + yourUrl);
-        console.log(response['data'])
-        for (let entry of response['data']['results']) {
-          this.locations.push(new GeoLocation(entry['geometry']['location']['lat'], 
-                                              entry['geometry']['location']['lng'],
-                                              entry['name'],
-                                              entry['rating'],
-                                              false,
-                                              this.city,
-                                              ""));
-          
-        }
+      const response = await axios.get(proxyurl + yourUrl);
+      console.log(response['data'])
+      for (let entry of response['data']['results']) {
+        this.locations.push(new GeoLocation(entry['geometry']['location']['lat'],
+          entry['geometry']['location']['lng'],
+          entry['name'],
+          entry['rating'],
+          false,
+          this.city,
+          ""));
+
+      }
     } catch (exception) {
-        console.log(exception);
-      }
-      
-      console.log(this.locations);
-  }
- 
-    // Get Current Location Coordinates
-    private setCurrentLocation() {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
-          this.zoom = 15;
-        });
-
-
-      }
+      console.log(exception);
     }
+
+    console.log(this.locations);
+  }
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        this.zoom = 15;
+      });
+
+
+    }
+  }
 
   onClickInfoView(id) {
     console.log(id)
   }
 
 
-  
+
   markerClicked(marker) {
     this.getNumber()
     if (this.is_achievement(marker)) {
@@ -170,24 +176,27 @@ export class DashboardComponent implements OnInit {
       });
     }
     console.log(this.random_year)
-    this.locations.forEach(x =>  {
+    this.locations.forEach(x => {
       if (x.lat === marker.lat && x.lng === marker.lng && x.visited === false) {
         x.visited = true;
         this.commonService.addCityPoints(this.city, x.rating).subscribe(res => {
           console.log(res);
+          this.commonService.getCityPoints(this.city).subscribe(res => {
+            this.numberOfPoints = res;
+          })
         });
       }
-   });
+    });
   };
 
   getNumber() {
-    
+
     var start = new Date(1200, 0, 1);
     var end = new Date(1990, 0, 1);
     var d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;

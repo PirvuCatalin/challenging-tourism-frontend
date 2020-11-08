@@ -11,8 +11,16 @@
     <div class="alert alert-info" role="alert">
         You can start your new experience by searching for a city under "START JOURNEY"
     </div>
-
+    <div class="mapScore">
+        <div>
+            {{numberOfPoints}}
+        </div>
+        <div class="mapScoreValue">
+            points
+        </div>
+    </div>
     <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
+        
         <agm-marker-cluster
             imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
             <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng">
