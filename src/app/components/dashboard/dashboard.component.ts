@@ -7,6 +7,14 @@ import { MapsAPILoader} from '@agm/core';
 import { CommonService } from 'src/app/service/common.service';
 // import { google } from '@types/googlemaps';
 
+export class Achievement {
+  name: string;
+
+  constructor(name) {
+    this.name = name;
+  }
+}
+
 export class GeoLocation {
   lat: number;
   lng: number;
@@ -43,16 +51,46 @@ export class DashboardComponent implements OnInit {
   lat: number;
   lng: number;
   zoom: number;
-  locations: GeoLocation[] = [];  
+  locations: GeoLocation[] = [];
+  achievements: Achievement[] = [];
+  achievements_locations: GeoLocation[] = [
+    new GeoLocation(44.453063, 26.0981233, "Unknown Hero Statue", -1, false, "Bucharest", ""),
+    new GeoLocation(44.4671777, 26.078116, "The Arch Of Triumph", -1, false, "Bucharest", ""),
+    new GeoLocation(44.5276558, 25.9926667, "Mogoşoaia Palace", -1, false, "Bucharest", ""),
+    new GeoLocation(44.4226721, 26.1029368, "18th-century townsman house", -1, false, "Bucharest", ""),
+    new GeoLocation(44.4126574, 26.0944944, "Monument istoric Mine si Cariere", -1, false, "Bucharest", ""),
+    new GeoLocation(44.4441413, 26.1412125, "The monument of the Armenian Heroes", -1, false, "Bucharest", ""),
+    new GeoLocation(44.4456823, 26.1082433, "Casa Barbu Brezianu", -1, false, "Bucharest", ""),
+    new GeoLocation(44.43198049999999, 26.0999081, "Palatul Pinacotecii", -1, false, "Bucharest", ""),
+    new GeoLocation(44.4301472, 26.1009639, "Curtea Veche", -1, false, "Bucharest", ""),
+    new GeoLocation(44.4463067, 26.1194244, "Casa Alexandru Dimitriu", -1, false, "Bucharest", ""),
+    new GeoLocation(44.43635829999999, 26.1011647, "National Liberal Party Memorial", -1, false, "Bucharest", "")
+  ];
   map;
   city: string;
   random_year: string;
+
+  populate_achievements() {
+    for (let item of this.achievements_locations) {
+      this.achievements.push(new Achievement("Visitor of " + item.name))
+    }
+  }
+
+  is_achievement(location) {
+    for (let item of this.achievements_locations) {
+      if (item.lat === location.lat && item.lng === location.lng) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
   ngOnInit() {
     this.setCurrentLocation();
+    this.populate_achievements()
 
     this.mapsAPILoader.load().then(() => { 
 
@@ -126,6 +164,11 @@ export class DashboardComponent implements OnInit {
   
   markerClicked(marker) {
     this.getNumber()
+    if (this.is_achievement(marker)) {
+      this.commonService.addAchievement("Visitor of " + marker.name).subscribe(res => {
+        console.log(res);
+      });
+    }
     console.log(this.random_year)
     this.locations.forEach(x =>  {
       if (x.lat === marker.lat && x.lng === marker.lng && x.visited === false) {

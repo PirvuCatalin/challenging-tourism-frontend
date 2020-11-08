@@ -23,3 +23,11 @@ agm-map {
     
     background-color: rgb(165, 165, 165);
   }
+  .cards-to-style {
+    width: 30%;
+    /* height: 40%; */
+    top: 1%;
+    left: 20%;
+    /* height: -1%; */
+    margin: auto;
+  }

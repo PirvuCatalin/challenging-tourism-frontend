@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 export class CommonService {
   testUrl = "https://test-fast-api-mata.herokuapp.com/";
   addPointsUrl = "https://test-fast-api-mata.herokuapp.com/inc_user_city?";
+  addAchievementUrl = "https://test-fast-api-mata.herokuapp.com/add_achievement?";
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +23,14 @@ export class CommonService {
 
   addCityPoints(city, points): Observable<any> {
     return this.http.put(this.addPointsUrl + "city=" + city + "&score=" + parseInt(points), {}).pipe(
+      map(results => { 
+        results;
+      })
+    );
+  }
+
+  addAchievement(achievement): Observable<any> {
+    return this.http.put(this.addAchievementUrl + "achievement=" + achievement, {}).pipe(
       map(results => { 
         results;
       })
