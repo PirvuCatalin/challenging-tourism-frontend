@@ -129,7 +129,6 @@ export class DashboardComponent implements OnInit {
         this.commonService.addCityPoints(this.city, x.rating).subscribe(res => {
           console.log(res);
         });
-        console.log("Executed")
       }
    });
   };
