@@ -32,7 +32,13 @@
                             <br>
                             <b>Score:</b> {{location.rating}}
                             <br>
-                            <div *ngIf="location.visited; else notVisited">You already visited this place!</div>
+                            <div *ngIf="location.visited; else notVisited">You already visited this place!
+                                <br>
+                                Did you know that this was built in <b>{{random_year}}</b>?
+                                <br>
+                                <b>Fun fact</b>: This objective has a total of {{location.rating}} rating based on only
+                                {{location.user_ratings_total}} votes.
+                            </div>
                             <ng-template #notVisited>
                                 <div>You did not visit this place!</div>
                             </ng-template>
@@ -151,11 +157,7 @@
                             <b>Name:</b> {{location.name}}
                             <br>
                             <b>Score:</b> {{location.rating}}
-                            <br>
-                            Did you know that this was built in <b>{{random_year}}</b>?
-                            <br>
-                            <b>Fun fact</b>: This objective has a total of {{location.rating}} rating based on only
-                            {{location.user_ratings_total}} votes.
+
                         </div>
                     </ng-template>
                 </agm-snazzy-info-window>
