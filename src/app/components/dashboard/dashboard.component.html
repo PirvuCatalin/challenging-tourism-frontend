@@ -1,27 +1,37 @@
 <div class="btn-group" role="group" aria-label="Basic example">
-    <button mdbBtn type="button" class="waves-light {{showCurrent ? 'selectedButton' : ''}}" mdbWavesEffect (click)="onCurrentClick()">CURRENT TRIP</button>
-    <button mdbBtn type="button" class="waves-light {{showPast ? 'selectedButton' : ''}}" mdbWavesEffect (click)="onPastClick()">PAST TRIP</button>
-    <button mdbBtn type="button" class="waves-light {{showJourney ? 'selectedButton' : ''}}" mdbWavesEffect (click)="onJourneyClick()">START JOURNEY</button>
+    <button mdbBtn type="button" class="waves-light {{showCurrent ? 'selectedButton' : ''}}" mdbWavesEffect
+        (click)="onCurrentClick()">CURRENT TRIP</button>
+    <button mdbBtn type="button" class="waves-light {{showPast ? 'selectedButton' : ''}}" mdbWavesEffect
+        (click)="onPastClick()">PAST TRIP</button>
+    <button mdbBtn type="button" class="waves-light {{showJourney ? 'selectedButton' : ''}}" mdbWavesEffect
+        (click)="onJourneyClick()">START JOURNEY</button>
 </div>
 
 <div [hidden]="!showCurrent">
+    <div class="alert alert-info" role="alert">
+        You can start your new experience by searching for a city under "START JOURNEY"
+    </div>
 
     <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
-        <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+        <agm-marker-cluster
+            imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
             <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng">
-            <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true" #infoWindow>
-                <ng-template>
-                    <div>
-                        <b>Name:</b> {{location.name}}
-                        <br>
-                        <b>Score:</b> {{location.rating}}
-                        <br>
-                        <div *ngIf="location.visited; else notVisited">You already visited this place!</div>
-                        <ng-template #notVisited><div>You did not visit this place!</div></ng-template>
-                    </div>
-                </ng-template>
-            </agm-snazzy-info-window>
-        </agm-marker>
+                <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true"
+                    #infoWindow>
+                    <ng-template>
+                        <div>
+                            <b>Name:</b> {{location.name}}
+                            <br>
+                            <b>Score:</b> {{location.rating}}
+                            <br>
+                            <div *ngIf="location.visited; else notVisited">You already visited this place!</div>
+                            <ng-template #notVisited>
+                                <div>You did not visit this place!</div>
+                            </ng-template>
+                        </div>
+                    </ng-template>
+                </agm-snazzy-info-window>
+            </agm-marker>
         </agm-marker-cluster>
     </agm-map>
 
@@ -132,23 +142,25 @@
     <div class="pac-container-jur md-form mt-0">
         <input #search id="pac-input" class="form-control mr-sm-2" type="text" placeholder="Where do you want to go?">
     </div>
-<!-- </div> -->
-<agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
-    <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
-        <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng"
-        (markerClick)="markerClicked(location)">
-        <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true" #infoWindow>
-            <ng-template>
-                <div>
-                    <b>Name:</b> {{location.name}}
-                    <br>
-                    <b>Score:</b> {{location.rating}}
-                    <br>
-                    Did you know that this was built in <b>{{random_year}}</b>?
-                </div>
-            </ng-template>
-        </agm-snazzy-info-window>
-    </agm-marker>
-    </agm-marker-cluster>
-</agm-map>
-<!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE&"></script> -->
+    <!-- </div> -->
+    <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
+        <agm-marker-cluster
+            imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+            <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng"
+                (markerClick)="markerClicked(location)">
+                <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true"
+                    #infoWindow>
+                    <ng-template>
+                        <div>
+                            <b>Name:</b> {{location.name}}
+                            <br>
+                            <b>Score:</b> {{location.rating}}
+                            <br>
+                            Did you know that this was built in <b>{{random_year}}</b>?
+                        </div>
+                    </ng-template>
+                </agm-snazzy-info-window>
+            </agm-marker>
+        </agm-marker-cluster>
+    </agm-map>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE&"></script> -->

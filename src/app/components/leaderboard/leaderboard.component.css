@@ -1,10 +1,10 @@
 agm-map {
     height: 75%;
-    width: 99%;
+    width: 70%;
     top: 21%;
-    left: -4%;
-    text-align: -webkit-right;
-    padding-left: 50%;
+    left: 47%;
+    /* text-align: -webkit-right; */
+    padding-left: -13%;
     position: absolute;
 }
 
@@ -43,4 +43,8 @@ agm-map {
     position: fixed;
     left: 5%;
     top: 10%;
+}
+
+caption {
+    caption-side: top !important;
 }

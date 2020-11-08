@@ -1,7 +1,6 @@
 <div class="leaderboardTitle">Leaderboard</div>
-<div class="leaderboard">
-    <div [hidden]="selectedCity == null">
-        <table class="table">
+    <div class="leaderboard" [hidden]="selectedCity == null">
+        <table mdbTable mdbTableScroll scrollY="true" maxHeight="500" class="table">
             <caption>Leaderboard of {{selectedCity}}</caption>
             <thead>
                 <tr>
@@ -19,8 +18,8 @@
             </tbody>
         </table>
     </div>
-    <div [hidden]="selectedCity != null">
-        <table class="table">
+    <div  class="leaderboard"  [hidden]="selectedCity != null">
+        <table mdbTable mdbTableScroll scrollY="true" maxHeight="500" class="table">
             <caption>Global Leaderboard</caption>
             <thead>
                 <tr>
@@ -38,7 +37,6 @@
             </tbody>
         </table>
     </div>
-</div>
 
 <div class="map">
     <div class="pac-container-jur md-form mt-0">
