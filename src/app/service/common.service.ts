@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class CommonService {
   testUrl = "https://test-fast-api-mata.herokuapp.com/";
+  addPointsUrl = "https://test-fast-api-mata.herokuapp.com/inc_user_city?";
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +16,14 @@ export class CommonService {
     return this.http.get(this.testUrl).pipe(
       map(results => { 
         return results;
+      })
+    );
+  }
+
+  addCityPoints(city, points): Observable<any> {
+    return this.http.put(this.addPointsUrl + "city=" + city + "&score=" + parseInt(points), {}).pipe(
+      map(results => { 
+        results;
       })
     );
   }
