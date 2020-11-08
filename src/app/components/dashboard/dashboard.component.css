@@ -83,3 +83,7 @@ agm-map {
   width: 45%;
   display: inline-block;
 }
+mdb-card-body {
+  text-align: center;
+  height: 20%;
+}
