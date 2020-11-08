@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 })
 export class MyAccountService {
 
-  myInfo = "http://test-fast-api-mata.herokuapp.com/users/me";
+  myInfo = "https://test-fast-api-mata.herokuapp.com/users/me";
 
   constructor(private http: HttpClient) { }
 

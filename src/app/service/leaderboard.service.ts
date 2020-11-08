@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class LeaderboardService {
 
-  leaderboardByCityUrl = "http://test-fast-api-mata.herokuapp.com/leader_board_by_city";
-  leaderboard = "http://test-fast-api-mata.herokuapp.com/leader_board";
+  leaderboardByCityUrl = "https://test-fast-api-mata.herokuapp.com/leader_board_by_city";
+  leaderboard = "https://test-fast-api-mata.herokuapp.com/leader_board";
 
   constructor(private http: HttpClient) { }
 
