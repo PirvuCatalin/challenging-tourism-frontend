@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Challenge } from '../components/challenges/challenges.component';
 
 @Injectable({
   providedIn: 'root'
@@ -45,4 +46,10 @@ export class CommonService {
       })
     );
   }
+
+  activeChallenge : Challenge = null;
+
+  challengeExpire = 0;
+
+  challengeFailed = false;
 }

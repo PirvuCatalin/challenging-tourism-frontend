@@ -1,0 +1,7 @@
+<div class="card text-white bg-warning mb-3" style="max-width: 20rem;" *ngFor="let item of challenges">
+    <div class="card-header">{{item.bonusPoints}} bonus points</div>
+    <div class="card-body">
+        <h5 class="card-title">{{item.name}} </h5>
+        <button mdbBtn style="background-color: rgb(190, 108, 31);" (click)="buttonClicked(item)">Start Challenge!</button>
+    </div>
+</div>

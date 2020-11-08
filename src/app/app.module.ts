@@ -21,6 +21,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { ChallengesComponent } from './components/challenges/challenges.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     RegisterComponent,
     LogoutComponent,
     LeaderboardComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    ChallengesComponent
   ],
   imports: [
     BrowserModule,

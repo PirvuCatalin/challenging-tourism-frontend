@@ -7,6 +7,14 @@
         <ul class="navbar-nav ml-auto">
             <div *ngIf="authService.isLoggedIn()">
                 <li class="nav-item">
+                    <a class="nav-link waves-light" mdbWavesEffect href="/challenges">
+                        <mdb-icon fas icon="jedi"></mdb-icon> Challenges<span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </div>
+
+            <div *ngIf="authService.isLoggedIn()">
+                <li class="nav-item">
                     <a class="nav-link waves-light" mdbWavesEffect href="/leaderboard">
                         <mdb-icon fas icon="crown"></mdb-icon> Leaderboard<span class="sr-only">(current)</span>
                     </a>
@@ -31,7 +39,6 @@
                     <div *ngIf="authService.isLoggedIn(); else elseBlock">
                         <a class="dropdown-item waves-light" mdbWavesEffect href="my-account">My account</a>
                         <a class="dropdown-item waves-light" mdbWavesEffect href="dashboard">Go somewhere</a>
-                        <a class="dropdown-item waves-light" mdbWavesEffect href="dashboard">Settings</a>
                         <a class="dropdown-item waves-light" mdbWavesEffect href="logout">Sign out</a>
                     </div>
                     <ng-template #elseBlock><a class="dropdown-item waves-light" mdbWavesEffect href="login">Sign in</a></ng-template>

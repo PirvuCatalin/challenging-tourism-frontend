@@ -1,11 +1,16 @@
 /// <reference types="@types/googlemaps" />
 declare var require: any
+
+/// <reference path ="../../node_modules/@types/jquery/index.d.ts"/>
+declare var $: any
+
 // declare var google: any
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { CommonService } from 'src/app/service/common.service';
 // import { google } from '@types/googlemaps';
+import { timer } from 'rxjs';
 
 export class Achievement {
   name: string;
@@ -50,7 +55,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private commonService: CommonService) { }
+    public commonService: CommonService) { }
 
   lat: number;
   lng: number;
@@ -94,7 +99,47 @@ export class DashboardComponent implements OnInit {
 
   numberOfPoints = 0;
 
+  subscribeTimer = 0;
+
+  challengeSuccess = false;
+
+  challengeEnded = false;
+
   ngOnInit() {
+    if (this.commonService.activeChallenge && this.commonService.activeChallenge.isActive == true) {
+      this.challengeEnded = true;
+      this.commonService.activeChallenge.isActive = false;
+      const source = timer(1000, 1000);
+      const abc = source.subscribe(val => {
+        if (this.commonService.activeChallenge != null) {
+          let time = this.commonService.activeChallenge.expiresInSeconds - val;
+          if (time > 0) {
+            this.subscribeTimer = time;
+          } else if (time == 0) {
+            console.log("done");
+
+            if (this.commonService.activeChallenge.currentNumOfWaypoints >=  this.commonService.activeChallenge.numOfWaypoints) {
+              this.challengeSuccess = true;
+              console.log("making request!");
+              console.log(this.city);
+              console.log(this.commonService.activeChallenge.bonusPoints);
+              this.commonService.addCityPoints(this.city, this.commonService.activeChallenge.bonusPoints).subscribe(res => {
+                // console.log(res);
+              });
+            } else {
+              this.challengeSuccess = false;
+            }
+
+            // this.challengeEnded = false;
+            this.commonService.activeChallenge = null;
+          }
+        }
+      });
+    }
+
+
+
+
     this.setCurrentLocation();
     this.populate_achievements()
 
@@ -114,7 +159,7 @@ export class DashboardComponent implements OnInit {
           this.city = place.name;
 
           this.commonService.getCityPoints(this.city).subscribe(res => {
-            this.numberOfPoints = res;
+            this.numberOfPoints = res ? res : 0;
           })
 
           //set latitude, longitude and zoom
@@ -185,11 +230,14 @@ export class DashboardComponent implements OnInit {
     console.log(this.random_year)
     this.locations.forEach(x => {
       if (x.lat === marker.lat && x.lng === marker.lng && x.visited === false) {
+        if (this.commonService.activeChallenge && marker.city === this.commonService.activeChallenge.city) {
+          this.commonService.activeChallenge.currentNumOfWaypoints++;
+        }
         x.visited = true;
         this.commonService.addCityPoints(this.city, x.rating).subscribe(res => {
           console.log(res);
           this.commonService.getCityPoints(this.city).subscribe(res => {
-            this.numberOfPoints = res;
+            this.numberOfPoints = res ? res : 0;
           })
         });
       }

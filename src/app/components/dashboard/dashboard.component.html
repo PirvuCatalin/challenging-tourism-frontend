@@ -20,11 +20,11 @@
         </div>
     </div>
     <agm-map #gm [zoom]=13 [latitude]="lat" [longitude]="lng">
-        
+
         <agm-marker-cluster
             imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
             <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng">
-                <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true"
+                <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="300" [closeWhenOthersOpen]="true"
                     #infoWindow>
                     <ng-template>
                         <div>
@@ -44,82 +44,96 @@
     </agm-map>
 
 </div>
-<div [hidden]="!showPast"> 
+<div [hidden]="!showPast">
     <div class="card-group">
         <!-- Card -->
         <mdb-card>
-          <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-            <!-- Card img -->
-            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/49.jpg" alt="Card image cap"></mdb-card-img>
-            <a>
-              <div class="mask"></div>
-            </a>
-          </div>
-          <!--Card content-->
-          <mdb-card-body>
-            <!--Title-->
-            <mdb-card-title>
-              <h4>Japan, Tokyo</h4>
-            </mdb-card-title>
-      
-            <!--Text-->
-            <mdb-card-text> Maybe you want some sake.
-            </mdb-card-text>
-      
-            <a href="dashboard" mdbBtn color="primary" mdbWavesEffect>Go there!</a>
-          </mdb-card-body>
+            <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                <!-- Card img -->
+                <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/49.jpg" alt="Card image cap">
+                </mdb-card-img>
+                <a>
+                    <div class="mask"></div>
+                </a>
+            </div>
+            <!--Card content-->
+            <mdb-card-body>
+                <!--Title-->
+                <mdb-card-title>
+                    <h4>Japan, Tokyo</h4>
+                </mdb-card-title>
+
+                <!--Text-->
+                <mdb-card-text> Maybe you want some sake.
+                </mdb-card-text>
+
+                <a href="dashboard" mdbBtn color="primary" mdbWavesEffect>Go there!</a>
+            </mdb-card-body>
         </mdb-card>
-      
+
         <!-- Card -->
         <mdb-card>
-          <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-            <!-- Card img -->
-            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg" alt="Card image cap"></mdb-card-img>
-            <a>
-              <div class="mask"></div>
-            </a>
-          </div>
-          <!--Card content-->
-          <mdb-card-body>
-            <!--Title-->
-            <mdb-card-title>
-              <h4>Bali, Indonesia</h4>
-            </mdb-card-title>
-      
-            <!--Text-->
-            <mdb-card-text> How about a quick refresher?
-            </mdb-card-text>
-      
-            <a href="dashboard" mdbBtn color="primary" mdbWavesEffect>Go there!</a>
-          </mdb-card-body>
+            <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                <!-- Card img -->
+                <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg" alt="Card image cap">
+                </mdb-card-img>
+                <a>
+                    <div class="mask"></div>
+                </a>
+            </div>
+            <!--Card content-->
+            <mdb-card-body>
+                <!--Title-->
+                <mdb-card-title>
+                    <h4>Bali, Indonesia</h4>
+                </mdb-card-title>
+
+                <!--Text-->
+                <mdb-card-text> How about a quick refresher?
+                </mdb-card-text>
+
+                <a href="dashboard" mdbBtn color="primary" mdbWavesEffect>Go there!</a>
+            </mdb-card-body>
         </mdb-card>
-      
+
         <!-- Card -->
         <mdb-card>
-          <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-            <!-- Card img -->
-            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/77.jpg" alt="Card image cap"></mdb-card-img>
-            <a>
-              <div class="mask"></div>
-            </a>
-          </div>
-          <!--Card content-->
-          <mdb-card-body>
-            <!--Title-->
-            <mdb-card-title>
-              <h4>Skiathos, Greece</h4>
-            </mdb-card-title>
-      
-            <!--Text-->
-            <mdb-card-text> Maybe you want to enjoy some greek sun.
-            </mdb-card-text>
-      
-            <a href="dashboard" mdbBtn color="primary" mdbWavesEffect>Go there!</a>
-          </mdb-card-body>
+            <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                <!-- Card img -->
+                <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/77.jpg" alt="Card image cap">
+                </mdb-card-img>
+                <a>
+                    <div class="mask"></div>
+                </a>
+            </div>
+            <!--Card content-->
+            <mdb-card-body>
+                <!--Title-->
+                <mdb-card-title>
+                    <h4>Skiathos, Greece</h4>
+                </mdb-card-title>
+
+                <!--Text-->
+                <mdb-card-text> Maybe you want to enjoy some greek sun.
+                </mdb-card-text>
+
+                <a href="dashboard" mdbBtn color="primary" mdbWavesEffect>Go there!</a>
+            </mdb-card-body>
         </mdb-card>
-      </div>
+    </div>
 </div>
 <div [hidden]="!showJourney">
+    <div *ngIf="challengeEnded == true">
+        <div class="alert alert-warning" role="alert" *ngIf="commonService.activeChallenge != null; else elseblock">
+            {{commonService.activeChallenge.name}}. Time remaining: {{subscribeTimer}}
+        </div>
+        <ng-template #elseblock>
+            <div *ngIf="challengeSuccess == true; else noSuccess" class="alert alert-success" role="alert">Well done! 100 points added to your account!</div>
+            <ng-template #noSuccess>
+                <div class="alert alert-warning" role="alert">Whoops...Time's up!</div>
+            </ng-template>
+        </ng-template>
+    </div>
     <!-- <div class="pac-container-jur"> -->
     <div class="pac-container-jur md-form mt-0">
         <input #search id="pac-input" class="form-control mr-sm-2" type="text" placeholder="Where do you want to go?">
@@ -130,7 +144,7 @@
             imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
             <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng"
                 (markerClick)="markerClicked(location)">
-                <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true"
+                <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="400" [closeWhenOthersOpen]="true"
                     #infoWindow>
                     <ng-template>
                         <div>
@@ -140,11 +154,13 @@
                             <br>
                             Did you know that this was built in <b>{{random_year}}</b>?
                             <br>
-                            Fun fact: This objective has a total of {{location.rating}} rating based on only {{location.user_ratings_total}} votes.
+                            <b>Fun fact</b>: This objective has a total of {{location.rating}} rating based on only
+                            {{location.user_ratings_total}} votes.
                         </div>
                     </ng-template>
                 </agm-snazzy-info-window>
             </agm-marker>
         </agm-marker-cluster>
     </agm-map>
+
     <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE&"></script> -->
