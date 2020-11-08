@@ -14,14 +14,16 @@ export class GeoLocation {
   rating: number;
   visited: boolean;
   city: string;
+  photo_url: number;
 
-  constructor (lat, lng, name, rating, visited, city) {
+  constructor (lat, lng, name, rating, visited, city, photo_url) {
     this.lat = lat;
     this.lng = lng;
     this.name = name;
     this.rating = Math.round((rating * 100 / 23)*100)/100;
     this.visited = visited;
     this.city = city;
+    this.photo_url = photo_url;
   }
 
 }
@@ -44,6 +46,7 @@ export class DashboardComponent implements OnInit {
   locations: GeoLocation[] = [];  
   map;
   city: string;
+  random_year: string;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -78,22 +81,21 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  
-
   async get_stuff(lat, lng) {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const yourUrl: string = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=15000&keyword=historic&key=AIzaSyAC5jNrcEmMrHo4h9GKBbk0novGz97WBqE`;
     const axios = require('axios');
     try {
         const response = await axios.get(proxyurl + yourUrl);
-        // console.log(response['data'])
+        console.log(response['data'])
         for (let entry of response['data']['results']) {
           this.locations.push(new GeoLocation(entry['geometry']['location']['lat'], 
                                               entry['geometry']['location']['lng'],
                                               entry['name'],
                                               entry['rating'],
                                               false,
-                                              this.city));
+                                              this.city,
+                                              ""));
           
         }
     } catch (exception) {
@@ -120,9 +122,11 @@ export class DashboardComponent implements OnInit {
     console.log(id)
   }
 
+
   
   markerClicked(marker) {
-
+    this.getNumber()
+    console.log(this.random_year)
     this.locations.forEach(x =>  {
       if (x.lat === marker.lat && x.lng === marker.lng && x.visited === false) {
         x.visited = true;
@@ -133,6 +137,20 @@ export class DashboardComponent implements OnInit {
    });
   };
 
+  getNumber() {
+    
+    var start = new Date(1200, 0, 1);
+    var end = new Date(1990, 0, 1);
+    var d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    this.random_year = [year, month, day].join('-');
+  }
 
   showCurrent = false;
   showPast = false;

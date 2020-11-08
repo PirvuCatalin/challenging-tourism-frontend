@@ -12,9 +12,9 @@
             <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true" #infoWindow>
                 <ng-template>
                     <div>
-                        Name: {{location.name}}
+                        <b>Name:</b> {{location.name}}
                         <br>
-                        Rating: {{location.rating}}
+                        <b>Score:</b> {{location.rating}}
                         <br>
                         <div *ngIf="location.visited; else notVisited">You already visited this place!</div>
                         <ng-template #notVisited><div>You did not visit this place!</div></ng-template>
@@ -40,9 +40,11 @@
         <agm-snazzy-info-window [disableAutoPan]="false" [maxWidth]="200" [closeWhenOthersOpen]="true" #infoWindow>
             <ng-template>
                 <div>
-                    Name: {{location.name}}
+                    <b>Name:</b> {{location.name}}
                     <br>
-                    Rating: {{location.rating}}
+                    <b>Score:</b> {{location.rating}}
+                    <br>
+                    Did you know that this was built in <b>{{random_year}}</b>?
                 </div>
             </ng-template>
         </agm-snazzy-info-window>
